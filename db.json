@@ -1,0 +1,19 @@
+{
+  "pay": {
+      "id": "1234",
+      "state": "APPROVED",
+      "code": "00",
+      "responseMessage": "Approved transaction"
+    }
+  , "antifraud": {
+    "cardValidation": true,
+    "payerValidation": true
+  },
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ]
+}
