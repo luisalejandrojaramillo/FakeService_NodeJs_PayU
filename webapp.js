@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const application = express();
 
@@ -6,18 +7,26 @@ application.get("/", (req, res) => {
 })
 
 application.post("/pay", (req, res) => {
-    const response = {
-        "id": "1234",
+    const errorResponse = {
+        "id": uuidv4(),
+        "state": "DECLINED",
+        "code": "43",
+        "responseMessage": "Network rejected"
+    };
+    const approvedResponse = {
+        "id": uuidv4(),
         "state": "APPROVED",
         "code": "00",
         "responseMessage": "Approved transaction"
     };
-    res.send(response)
+    const response = [errorResponse, approvedResponse, approvedResponse]
+    res.send(response[generateRandomInt(response.length)])
 })
 
 application.post("/antifraud", (req, res) => {
+    const values = [true, true, false]
     const response = {
-        "cardValidation": true,
+        "cardValidation": values[generateRandomInt(values.length)],
         "payerValidation": true
     };
     res.send(response)
@@ -26,3 +35,7 @@ application.post("/antifraud", (req, res) => {
 application.listen(3000,() => {
     console.log("Server Started");
 })
+
+function generateRandomInt(max){
+    return Math.floor(Math.random() * max);
+}
